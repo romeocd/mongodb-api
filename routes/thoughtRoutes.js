@@ -75,6 +75,25 @@ router.post('/:thoughtId/reactions', async (req,res) => {
         res.status(400).json({ message: error.message });
     }
 });
+//PUT to update a thought by its _id
+router.put('/:id', async(req, res) => {
+    try {
+        const updatedThought = await Thought.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedThought) {
+            return res.status(404).json({ message: 'Thought not found' });
+        }
+
+        res.json(updatedThought);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 
 //DELETE to remove a reaction
 router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
