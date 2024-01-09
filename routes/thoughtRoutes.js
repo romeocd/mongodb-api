@@ -25,3 +25,18 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+//POST to create a new thought
+router.post('/', async (req, res) => {
+    try {
+        const { thoughtText, username, userId } = req.body;
+        const newThought = new Thought({ thoughtText, username });
+        await newThought.save();
+
+        await User.findByIdAndUpdate(userId, { $push: { thoughts: newThought._id } });
+
+        res.status(201).json(newThought);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
