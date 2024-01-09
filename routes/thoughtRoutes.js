@@ -53,3 +53,25 @@ router.delete('/:id', async (req,res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+//POST to create a reaction
+router.post('/:thoughtId/reactions', async (req,res) => {
+    try {
+        const { reactionBody, username } = req.body;
+        const reaction = { reactionBody, username, createdAt: new Date() };
+
+        const thought = await Thought.findByIdAndUpdate(
+            req.params.thoughtId,
+            { $push: { reactions: reaction } },
+            { new: true }
+        );
+
+        if (!thought) {
+            return res.status(404).json({ message: 'Thought not found' });
+        }
+
+        res.json(thought);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
