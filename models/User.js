@@ -13,3 +13,10 @@ const userSchema = new Schema({
     thoughts: [{ type: Schema.Types.ObjectId, ref: 'Thought' }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
+
+//Virtual friend count 
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
+
+module.exports = mongoose.model('User', userSchema);
