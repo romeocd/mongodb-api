@@ -49,3 +49,21 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({ message: error.message});
     }
 });
+
+//DELETE to remove a user 
+router.delete('/:id', async (req,res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        //remove associated thoughts
+        await Thought.deleteMany({ username: user.username });
+
+        await user.remove();
+        res.json({ message: 'User and associated thoughts deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
