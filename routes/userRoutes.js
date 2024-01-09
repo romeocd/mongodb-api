@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-//Get a single user by _id
+//GET a single user by _id
 router.get('/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id).populate('thoughts').populate('friends');
@@ -23,6 +23,17 @@ router.get('/:id', async (req, res) => {
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+//POST a new user
+router.post('/', async (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
 });
 
