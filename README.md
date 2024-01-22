@@ -68,3 +68,4 @@ Email: rdumlao07@gmail.com
 
 ## Walkthrough Video
 Part 1: https://drive.google.com/file/d/19kFymwLpdFuwoUrVw3VY48iDOlfBuQeJ/view
+Part 2: https://drive.google.com/file/d/18zq2_dPhRNJqqYAXqGtJsVHWc0S1KKT6/view
