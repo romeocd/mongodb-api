@@ -67,4 +67,4 @@ Email: rdumlao07@gmail.com
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Walkthrough Video
-https://drive.google.com/file/d/1NdFmnVNx3IOvYTU792MfaxjcqgETADi4/view
+Part 1: https://drive.google.com/file/d/19kFymwLpdFuwoUrVw3VY48iDOlfBuQeJ/view
