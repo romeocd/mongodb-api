@@ -44,11 +44,21 @@ router.post('/', async (req, res) => {
 //DELETE to remove a thought by _id
 router.delete('/:id', async (req,res) => {
     try {
-        const deletedThought = await Thought.findByIdAndDelete(req.params.id);
-        if (!deletedThought) {
+        const thought = await Thought.findById(req.params.id);
+        if (!thought) {
             return res.status(404).json({ message: 'Thought not found' });
         }
-        res.json({ message: 'Thought deleted' });
+
+        //Remove thought ID from user's thoughts array
+
+        await User.updateMany(
+            { thoughts: req.params.id },
+            { $pull: { thoughts: req.params.id } }
+        );
+
+        //Delete the thought
+        await Thought.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Thought and reference to it deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
